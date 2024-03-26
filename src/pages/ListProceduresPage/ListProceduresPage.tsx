@@ -1,9 +1,9 @@
+import PageContainer from "../../components/containers/PageContainer";
 
 const ListProceduresPage = () => {
     return (
-        <div className="">
-            asdasda
-        </div>
+        <PageContainer extraStyles="border border-[red]">
+        </PageContainer>
     );
 };
 

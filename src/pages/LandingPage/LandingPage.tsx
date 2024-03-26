@@ -5,7 +5,7 @@ import PageContainer from "../../components/containers/PageContainer";
 
 const LandingPage = () => {
     return (
-        <div className="h-full border border-[red]">
+        <div className="min-h-[100vh] bg-stc-gray-01">
             <PageHeader>
                 <PageContainer extraStyles="flex items-center justify-end gap-6">
                     <NavigationLink description="Solicitações Clínicas" to="/" />

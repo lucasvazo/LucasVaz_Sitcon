@@ -1,9 +1,10 @@
+import PageContainer from "../../components/containers/PageContainer";
 
 
 const ScheduleProcedurePage = () => {
     return (
-        <div className="w-full bg-blue h-[90px]">
-        </div>
+        <PageContainer extraStyles="border border-[red]">
+        </PageContainer>
     );
 };
 

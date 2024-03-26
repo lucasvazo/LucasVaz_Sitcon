@@ -2,7 +2,7 @@ import magnIcon from '../../assets/magnifyingGlass.svg';
 
 const SearchInput = ({searchQuery, handleSearchChange} : {searchQuery: string, handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void}) => {
     return (
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 text-xs">
             <div className="relative">
                 <input
                     type="text"

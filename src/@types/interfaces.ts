@@ -18,3 +18,8 @@ export interface IPatientsTable {
     patientsList: IPatientsPayload,
     loadPatients: (currPage?: number) => Promise<void>
 }
+
+export interface IRequestFormSection {
+    patientSelected: IPatient | null,
+    setPatientSelected: (patientSelected: IPatient | null) => void,
+}

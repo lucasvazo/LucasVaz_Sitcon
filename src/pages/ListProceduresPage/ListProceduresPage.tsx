@@ -1,9 +1,10 @@
 import PageContainer from "../../components/containers/PageContainer";
-import MainButton from "../../components/buttons/MainButton";
 import useApi from "../../hooks/useApi";
 import { useEffect, useState } from "react";
 import { IPatient, IPatientsPayload } from "../../@types/interfaces";
 import PatientsSection from "./components/PatientsSection";
+import RequestFormSection from "./components/RequestFormSection";
+
 
 const ListProceduresPage = () => {
 
@@ -26,19 +27,22 @@ const ListProceduresPage = () => {
         loadPatients();
     }, []);
 
+    useEffect(() => {
+        console.log(patientSelected)
+    }, [patientSelected]);
+
     return (
         <PageContainer extraStyles="mt-8">
             {
                 patientSelected
                 ?
-                <MainButton onClick={() => setPatientSelected(null)} variant={"orangeFilled"} title="Voltar" />
+                <RequestFormSection patientSelected={patientSelected} setPatientSelected={setPatientSelected} />
                 :
                 <PatientsSection 
                     setPatientSelected={setPatientSelected} 
                     patientsList={patientsList} 
                     loadPatients={loadPatients}
-                />
-                    
+                />  
             }
         </PageContainer>
     );

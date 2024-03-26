@@ -17,6 +17,7 @@ const TextInput = ( {styles, disabled = false, readonly = false, placeholder, de
                 placeholder={placeholder}
                 defaultValue={ readonly ? defaultValue : ''}
                 readOnly={readonly}
+                id={name}
                 required
                 className={`h-[62px] rounded-[12px] disabled:bg-stc-light-blue
                 shadow-md w-full px-8`}

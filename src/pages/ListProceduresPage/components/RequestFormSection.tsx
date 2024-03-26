@@ -9,21 +9,20 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
 
     return (
         <form className="flex flex-col gap-4">
-                <MainButton onClick={() => setPatientSelected(null)} variant={"blueOutlined"} title="Voltar" />
-                <ReqFormRow>
-                    <TextInput readonly disabled styles="basis-1/3" defaultValue={patientSelected!.nome} name="patientName" label="Nome do Paciente" />
-                    <TextInput readonly disabled styles="basis-1/3" defaultValue={patientSelected!.dataNasc.toString()} name="patientBirth" label="Data de Nascimento" />
-                    <TextInput readonly disabled styles="basis-1/3" defaultValue={patientSelected!.cpf} name="patientCPF" label="CPF" />
-                </ReqFormRow>
-                <Warning/>
-                <ReqFormRow>
-                    <DropdownInput 
-                        placeholder="Selecione..." 
-                        options={[{id:1, nome: "juca"}, { id:2, nome: "luiza"}]} 
-                        styles="w-full" 
-                        label="Profissional *" />
-                </ReqFormRow>
-
+            <MainButton onClick={() => setPatientSelected(null)} variant={"blueOutlined"} title="Voltar" />
+            <ReqFormRow>
+                <TextInput readonly disabled styles="basis-1/3" defaultValue={patientSelected!.nome} name="patientName" label="Nome do Paciente" />
+                <TextInput readonly disabled styles="basis-1/3" defaultValue={patientSelected!.dataNasc.toString()} name="patientBirth" label="Data de Nascimento" />
+                <TextInput readonly disabled styles="basis-1/3" defaultValue={patientSelected!.cpf} name="patientCPF" label="CPF" />
+            </ReqFormRow>
+            <Warning/>
+            <ReqFormRow>
+                <DropdownInput 
+                    placeholder="Selecione..." 
+                    options={[{id:1, nome: "juca"}, { id:2, nome: "luiza"}]} 
+                    styles="w-full" 
+                    label="Profissional *" />
+            </ReqFormRow>
         </form>
     );
 };

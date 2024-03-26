@@ -12,11 +12,12 @@ const DropdownInput = ( { styles, options, label, } :
             className={`h-full flex flex-col cursor-default ${styles}`}
             onClick={() => { setDisplayOptions( prev => !prev)}}
         >
-            <span
+            <label
+                htmlFor={`${label}${selected.id}`}
                 className="font-bold mb-2" 
                 >
                 {label}
-            </span>
+            </label>
             <div className="h-[62px] shadow-md relative w-full bg-stc-white rounded-[12px] ">
                 <div 
                     className={`absolute right-0 top-0 left-0 right-[62px] font-normal cursor-pointer
@@ -45,6 +46,7 @@ const DropdownInput = ( { styles, options, label, } :
                     </div>
                 }
             </div>
+            <input readOnly type="text" value={selected.id} hidden name={label} id={`${label}${selected.id}`} />
         </div>
     )
 }

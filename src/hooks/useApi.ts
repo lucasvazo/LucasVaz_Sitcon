@@ -10,9 +10,9 @@ const useApi = () => {
         }
     });
 
-    const getPatients = async () => {
+    const getPatients = async (currentPage: number = 1) => {
         try {
-            const {data: allPatients} = await api.get('/pacientes');
+            const {data: allPatients} = await api.get(`/pacientes?page_size=10&page=${currentPage}`);
             return allPatients;
         } catch (error) {
             return false;

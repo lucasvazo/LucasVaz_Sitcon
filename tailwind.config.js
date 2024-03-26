@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         "stc-blue": "#00629B",
+        "stc-blue-02": "#E7F4F9",
         "stc-gray-01": "#EFEFEF",
         "stc-gray-02": "#C4C4C4",
         "stc-orange-01": "#FFD6B0",

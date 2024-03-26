@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 
-const MainButton = ({ title, onClick, variant='blueOutlined' } : 
-    { title: string, onClick: MouseEventHandler, variant: 'blueOutlined' | 'blueFilled' | 'orangeFilled'}) => {
+const MainButton = ({ title, onClick, variant='blueOutlined', disabled } : 
+    { title: string, onClick: MouseEventHandler, variant: 'blueOutlined' | 'blueFilled' | 'orangeFilled', disabled?: boolean}) => {
 
     const buttonVariants = {
         blueOutlined: "border border-stc-blue text-stc-blue",
@@ -12,6 +12,7 @@ const MainButton = ({ title, onClick, variant='blueOutlined' } :
     return (
         <button 
             onClick={onClick}
+            disabled={disabled}
             className={
                 `duration-300 h-[46px] border-stc-white shadow-lg transition-background-color
                 rounded-[12px] py-2 px-4 text-sm text-stc-white active:translate-y-[1px]

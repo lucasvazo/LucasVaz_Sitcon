@@ -41,10 +41,10 @@ const PatientsSection: React.FC<IPatientsTable> = ({ setPatientSelected, patient
             <table className="w-full text-center shadow-md rounded-lg">
                 <thead className="bg-stc-blue-02 h-[50px]">
                     <tr className="bg-stc-blue text-white">
-                        <th className="px-4 py-2">Paciente</th>
-                        <th className="px-4 py-2">Nascimento</th>
-                        <th className="px-4 py-2">CPF</th>
-                        <th className="px-4 py-2">Ações</th>
+                        <th className="w-1/4 px-4 py-2">Paciente</th>
+                        <th className="w-1/4 px-4 py-2">Nascimento</th>
+                        <th className="w-1/4 px-4 py-2">CPF</th>
+                        <th className="w-1/4 px-4 py-2">Ações</th>
                     </tr>
                 </thead>
                 <tbody>

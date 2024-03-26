@@ -23,7 +23,7 @@ const DropdownInput = ( { styles, options, label, disabled, setId } :
                 >
                 {label}
             </label>
-            <div className={`h-[62px] shadow-md relative w-full bg-stc-white rounded-[12px] ${ disabled ? "bg-gray-100" : "bg-stc-white"}`}>
+            <div className={`h-[62px] shadow-md relative w-full rounded-[12px] ${ disabled ? "bg-gray-100" : "bg-stc-white"}`}>
                 <div 
                     title={ disabled ? "Selecione o campo anterior para desbloquear" : selected.nome}
                     className={`absolute right-0 top-0 left-0 right-[62px] font-normal
@@ -40,7 +40,7 @@ const DropdownInput = ( { styles, options, label, disabled, setId } :
                 />
                 { displayOptions && !disabled &&
                     <div className="absolute top-[65px] left-0 right-0 overflow-hidden
-                        flex flex-col w-full bg-stc-white rounded-[12px] z-[100]">
+                        flex flex-col w-full bg-stc-white rounded-[12px] z-[100] shadow-md">
                         {options
                             .filter( option => option.id !== selected.id)
                             .map( (option, index) => (

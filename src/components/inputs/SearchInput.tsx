@@ -5,6 +5,7 @@ const SearchInput = ({searchQuery, handleSearchChange} : {searchQuery: string, h
         <div className="flex items-center justify-between mb-4 text-xs">
             <div className="relative">
                 <input
+                    name="searchInput"
                     type="text"
                     className="pl-12 pr-6 py-3 w-[490px] text-lg border rounded-lg"
                     placeholder="Pesquisar"

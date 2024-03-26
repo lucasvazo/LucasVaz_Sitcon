@@ -32,7 +32,7 @@ const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) =
     };
 
     return (
-        <div className="flex justify-center items-center mt-4 shadow-xl font-bold
+        <div className="flex justify-center items-center mt-8 shadow-xl font-bold
             bg-stc-white font-boldest w-fit mx-auto px-8 rounded-[16px] h-[62px] gap-2
             text-stc-gray-02">
             <button

@@ -13,6 +13,10 @@ const LandingPage = () => {
                 </PageContainer>
             </PageHeader>
             <Outlet/>
+            <div className="min-h-[150px] w-full bg-stc-light-blue mt-8
+                font-semibold flex items-center justify-center text-stc-blue">
+                Candidato: Lucas Vaz Nascimento - SITCON
+            </div>
         </div>
     );
 };

@@ -4,18 +4,21 @@ import MainButton from "../../../components/buttons/MainButton";
 import TextInput from "../../../components/inputs/TextInput";
 import DropdownInput from "../../../components/inputs/DropdownInput";
 import useApi from "../../../hooks/useApi";
+import DateInput from "../../../components/inputs/DateInput";
+import TimeInput from "../../../components/inputs/TimeInput";
 
 
 const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFormSection) => {
 
     const [ professionalOptions, setProfessionalOptions ] = useState<{id: number, nome: string}[]>([{id: -1, nome: 'Selecione um profissional...'}]);
     const [ solicitacaoOptions, setSolicitacaoOptions ] = useState<{id: number, nome: string}[]>([{id: -1, nome: 'Selecione um tipo de solicitação...'}]);
-    const [ procedurelOptions, setProcedurelOptions ] = useState<{id: number, nome: string}[]>([{id: -1, nome: 'Selecione um profissional...'}]);
+    const [ procedurelOptions, setProcedurelOptions ] = useState<{id: number, nome: string}[]>([{id: -1, nome: 'Selecione um procedimento...'}]);
     const [ selectedProcedure, setSelectedProcedure ] = useState<number>(0);
     const [ selectedProfessional, setSelectedProfessional ] = useState<number>(0);
     const [ selectedSolicitation, setSelectedSolicitation ] = useState<number>(0);
+    const [ timeAndDate, setTimeAndDate ] = useState<{time: string | null, date: Date | null}>( {time: null, date: null}) 
 
-    const {  getProfessionals, getProceduresByProfessionalId } = useApi();
+    const { getProfessionals, getProceduresByProfessionalId } = useApi();
 
     const loadProfessionals = async () => {
         const profArray = await getProfessionals()
@@ -61,6 +64,10 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
         }
     }, [selectedSolicitation]);
 
+    useEffect(() => {
+        console.log(timeAndDate)
+    }, [timeAndDate]);
+
     return (
         <form className="flex flex-col gap-4 whitespace-nowrap">
             <MainButton onClick={() => setPatientSelected(null)} variant={"blueOutlined"} title="Voltar" />
@@ -98,11 +105,21 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
                     label="Procedimentos *" />
             </ReqFormRow>
             <ReqFormRow extraStyles="flex justify-end mt-2">
+                <DateInput styles="basis-1/2" 
+                    setTimeAndDate={setTimeAndDate}
+                    name="appointmentDate" label="Data" />
+                <TimeInput styles="basis-1/2" 
+                    setTimeAndDate={setTimeAndDate}
+                    name="appointmentTime" label="Hora" />
+            </ReqFormRow>
+            <ReqFormRow extraStyles="flex justify-end mt-2 -mb-12">
                 <MainButton 
                     disabled={
                         !selectedProcedure ||
                         !selectedProfessional ||
-                        !selectedSolicitation
+                        !selectedSolicitation ||
+                        !timeAndDate.date ||
+                        !timeAndDate.time
                     }
                     onClick={() => {}} 
                     variant={"blueFilled"} 

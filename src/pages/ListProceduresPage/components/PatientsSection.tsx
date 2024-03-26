@@ -38,7 +38,7 @@ const PatientsSection: React.FC<IPatientsTable> = ({ setPatientSelected, patient
             <div className="flex items-center justify-between mb-4">
                 <SearchInput searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
             </div>
-            <table className="w-full text-center shadow-md rounded-lg">
+            <table className="w-full text-center shadow-md rounded-lg min-h-[669.68px] bg-stc-white">
                 <thead className="bg-stc-blue-02 h-[50px]">
                     <tr className="bg-stc-blue text-white">
                         <th className="w-1/4 px-4 py-2">Paciente</th>
@@ -58,7 +58,7 @@ const PatientsSection: React.FC<IPatientsTable> = ({ setPatientSelected, patient
                                 <td className="px-4 py-2">{patient.nome}</td>
                                 <td className="px-4 py-2">{formatDate(patient.dataNasc.toString())}</td>
                                 <td className="px-4 py-2">{patient.cpf}</td>
-                                <td className="px-4 py-2">
+                                <td className="px-4 py-2 flex items-center justify-center">
                                     <MainButton
                                         onClick={() => setPatientSelected(patient)}
                                         title="Prosseguir"

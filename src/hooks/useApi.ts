@@ -19,7 +19,31 @@ const useApi = () => {
         }
     }
 
-    return { getPatients };
+    const getProfessionals = async () => {
+        try {
+            const {data: allProfessionals} = await api.get(`/profissionais`);
+            const profissionaisArray = allProfessionals.map( (prof: any) => (
+                {
+                    id: prof.id,
+                    nome: prof.nome
+                }
+            ))
+            return profissionaisArray;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    const getProceduresByProfessionalId = async (professionalId: number) => {
+        try {
+            const { data: procedures } = await api.get(`/solicitacao?professionalId=${professionalId}`);
+            return procedures;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    return { getPatients, getProfessionals, getProceduresByProfessionalId };
 };
 
 export default useApi;

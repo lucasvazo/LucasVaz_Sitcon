@@ -23,3 +23,11 @@ export interface IRequestFormSection {
     patientSelected: IPatient | null,
     setPatientSelected: (patientSelected: IPatient | null) => void,
 }
+
+export interface IAgendamentoPayload {
+    dataAgendamento: Date,
+    dataCriacao: Date,
+    pacienteId: number,
+    procedimentoId: number[],
+    profissionalId: number
+}

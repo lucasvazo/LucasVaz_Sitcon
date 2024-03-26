@@ -14,7 +14,7 @@ const MainButton = ({ title, onClick, variant='blueOutlined', disabled } :
             onClick={onClick}
             disabled={disabled}
             className={
-                `duration-300 h-[46px] transition-background-color hover:-translate-y-[1px]
+                `duration-300 h-[46px] transition-background-color hover:-translate-y-[1px] w-fit
                 rounded-[12px] py-2 px-5 text-sm active:translate-y-[1px] hover:shadow-md leading-4
                 active:brightness-100 font-semibold hover:brightness-90 active:shadow-none ${buttonVariants[variant]} `
             }>

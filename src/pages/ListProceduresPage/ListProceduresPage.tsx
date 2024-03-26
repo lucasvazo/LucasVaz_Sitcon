@@ -27,10 +27,6 @@ const ListProceduresPage = () => {
         loadPatients();
     }, []);
 
-    useEffect(() => {
-        console.log(patientSelected)
-    }, [patientSelected]);
-
     return (
         <PageContainer extraStyles="mt-8">
             {

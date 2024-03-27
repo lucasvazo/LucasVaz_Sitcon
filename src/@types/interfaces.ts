@@ -30,3 +30,22 @@ export interface IAgendamentoPayload {
     procedimentoId: number,
     profissionalId: number
 }
+
+export interface IAgendamentos {
+    agendamentoId: number,
+    dataAgendamento: string,
+    dataCriacao: string,
+    paciente: {
+        id: number,
+        nome: string,
+        cpf: string
+    },
+    profissional: {
+        id: number,
+        nome: string
+    },
+    procedimento: {
+        id: number,
+        nome: string
+    }
+}

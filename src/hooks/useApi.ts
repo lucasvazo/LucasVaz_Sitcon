@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { IAgendamentoPayload } from '../@types/interfaces';
+import useUtils from './useUtils';
 
 const useApi = () => {
+
+    const { reverseFormatDateTime } = useUtils();
 
     const BASE_URL = 'http://localhost:3000'
     const api = axios.create({
@@ -53,9 +56,39 @@ const useApi = () => {
         }
     }
 
+    const getAllAgendamentos = async () => {
+        try {
+            const { data: allAgendamentos } = await api.get(`solicitacao/agendamentos`)
+            const formattedAgendamentos = allAgendamentos.map( (agendamento: any) => (
+                {
+                    agendamentoId: agendamento.id,
+                    dataAgendamento: reverseFormatDateTime(agendamento.dataAgendamento),
+                    dataCriacao: new Date(agendamento.dataCriacao).toLocaleDateString('pt-BR'),
+                    paciente: {
+                        id: agendamento.pacienteId.id,
+                        nome: agendamento.pacienteId.nome,
+                        cpf: agendamento.pacienteId.cpf,
+                    },
+                    profissional : {
+                        id: agendamento.profissionalId.id,
+                        nome: agendamento.profissionalId.nome,
+                    },
+                    procedimento: {
+                        id: agendamento.procedimentoId.id,
+                        nome: agendamento.procedimentoId.descricao,
+                    }
+                }
+            ))
+            return formattedAgendamentos;
+        } catch (error) {
+            return false
+        }
+    }
+
     return { 
         getPatients, 
         getProfessionals, 
+        getAllAgendamentos,
         postNewAgendamento,
         getProceduresByProfessionalId 
     };

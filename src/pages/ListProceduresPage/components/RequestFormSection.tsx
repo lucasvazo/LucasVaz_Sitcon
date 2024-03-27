@@ -1,11 +1,13 @@
-import { ReactNode, useEffect, useState } from "react";
-import { IRequestFormSection } from "../../../@types/interfaces";
+import { useEffect, useState } from "react";
+import { IAgendamentoPayload, IRequestFormSection } from "../../../@types/interfaces";
 import MainButton from "../../../components/buttons/MainButton";
 import TextInput from "../../../components/inputs/TextInput";
 import DropdownInput from "../../../components/inputs/DropdownInput";
 import useApi from "../../../hooks/useApi";
 import DateInput from "../../../components/inputs/DateInput";
 import TimeInput from "../../../components/inputs/TimeInput";
+import useUtils from "../../../hooks/useUtils";
+import { ReqFormRow, Warning } from "../../../components/containers/ReqFormRow";
 
 
 const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFormSection) => {
@@ -16,9 +18,10 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
     const [ selectedProcedure, setSelectedProcedure ] = useState<number>(0);
     const [ selectedProfessional, setSelectedProfessional ] = useState<number>(0);
     const [ selectedSolicitation, setSelectedSolicitation ] = useState<number>(0);
-    const [ timeAndDate, setTimeAndDate ] = useState<{time: string | null, date: Date | null}>( {time: null, date: null}) 
+    const [ timeAndDate, setTimeAndDate ] = useState<{time: string | null, date: Date | null}>( {time: null, date: null}) ;
 
-    const { getProfessionals, getProceduresByProfessionalId } = useApi();
+    const { getProfessionals, getProceduresByProfessionalId, postNewAgendamento } = useApi();
+    const { formatDateTime } = useUtils()
 
     const loadProfessionals = async () => {
         const profArray = await getProfessionals()
@@ -33,11 +36,11 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             const typeId = procedure.tipoSolicitacao.id;
             const typeDescription = procedure.tipoSolicitacao.descricao;
             if (!tiposSolicitacaoIds.includes(typeId)){
-                tiposSolicitacaoIds.push(typeId)
-                tiposSolicitacaoArray.push({id: typeId, nome: typeDescription})
+                tiposSolicitacaoIds.push(typeId);
+                tiposSolicitacaoArray.push({id: typeId, nome: typeDescription});
             }
         })
-        setSolicitacaoOptions([...tiposSolicitacaoArray])
+        setSolicitacaoOptions([...tiposSolicitacaoArray]);
     };
 
     const loadProceduresByType = async (professionalId: number, typeId: number) => {
@@ -47,6 +50,23 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             .map( (procedure: any) => ({ id: procedure.id, nome: procedure.descricao }) );
         setProcedurelOptions([...availableProcedures]);
     };
+
+    const createAgendamento = async ( e: React.FormEvent<HTMLFormElement> ) => {
+        e.preventDefault();
+        if (timeAndDate.date && timeAndDate.time) {
+            const scheduledProcedure = formatDateTime({ date: timeAndDate.date , time: timeAndDate.time})
+            const schedulePayload: IAgendamentoPayload = {
+                dataAgendamento: scheduledProcedure,
+                pacienteId: patientSelected!.id,
+                procedimentoId: selectedProcedure,
+                profissionalId: selectedProfessional
+            }
+            const submitPayload = await postNewAgendamento(schedulePayload);
+            if (submitPayload) {
+                setPatientSelected(null)
+            }
+        }
+    }
 
     useEffect(() => {
         loadProfessionals()
@@ -64,18 +84,25 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
         }
     }, [selectedSolicitation]);
 
-    useEffect(() => {
-        console.log(timeAndDate)
-    }, [timeAndDate]);
-
     return (
-        <form className="flex flex-col gap-4 whitespace-nowrap">
-            <MainButton onClick={() => setPatientSelected(null)} variant={"blueOutlined"} title="Voltar" />
+        <form 
+            onSubmit={createAgendamento} 
+            className="flex flex-col gap-4 whitespace-nowrap"
+        >
+            <MainButton 
+                onClick={() => setPatientSelected(null)} 
+                variant={"blueOutlined"} 
+                title="Voltar" 
+            />
             <ReqFormRow>
-                <TextInput readonly disabled styles="basis-1/3" 
-                    defaultValue={patientSelected!.nome} name="patientName" label="Nome do Paciente" />
-                <TextInput readonly disabled styles="basis-1/3" 
-                    defaultValue={patientSelected!.dataNasc.toString()} name="patientBirth" label="Data de Nascimento" />
+                <TextInput 
+                    readonly disabled styles="basis-1/3" 
+                    defaultValue={patientSelected!.nome} 
+                    name="patientName" label="Nome do Paciente" />
+                <TextInput 
+                    readonly disabled styles="basis-1/3" 
+                    defaultValue={patientSelected!.dataNasc.toString()} 
+                    name="patientBirth" label="Data de Nascimento" />
                 <TextInput readonly disabled styles="basis-1/3" 
                     defaultValue={patientSelected!.cpf} name="patientCPF" label="CPF" />
             </ReqFormRow>
@@ -130,22 +157,5 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
         </form>
     );
 };
-
-const ReqFormRow = ({children, extraStyles} : {children: ReactNode, extraStyles?: string}) => {
-    return (
-        <div className={`flex h-[91px] gap-8 ${extraStyles}`}>
-            {children}
-        </div>
-    );
-};
-
-const Warning = () => (
-    <div className="bg-stc-orange-01 h-[62px] flex gap-2 rounded-[12px]
-        items-center justify-center cursor-default my-2 whitespace-normal
-        text-center">
-        <span className="font-bold">Atenção!</span>
-        <span>Os Campos com * devem ser preechidos obrigatóriamente.</span>
-    </div>
-)
 
 export default RequestFormSection;

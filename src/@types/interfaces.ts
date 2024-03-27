@@ -25,9 +25,8 @@ export interface IRequestFormSection {
 }
 
 export interface IAgendamentoPayload {
-    dataAgendamento: Date,
-    dataCriacao: Date,
+    dataAgendamento: string,
     pacienteId: number,
-    procedimentoId: number[],
+    procedimentoId: number,
     profissionalId: number
 }

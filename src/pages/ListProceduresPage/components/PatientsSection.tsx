@@ -38,7 +38,7 @@ const PatientsSection: React.FC<IPatientsTable> = ({ setPatientSelected, patient
             <div className="flex items-center justify-between mb-4">
                 <SearchInput searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
             </div>
-            <table className="w-full text-center shadow-md rounded-lg min-h-[669.68px] bg-stc-white">
+            <table className="w-full text-center shadow-md rounded-lg bg-stc-white">
                 <thead className="bg-stc-blue-02 h-[50px]">
                     <tr className="bg-stc-blue text-white">
                         <th className="w-1/4 px-4 py-2">Paciente</th>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IAgendamentoPayload } from '../@types/interfaces';
 
 const useApi = () => {
 
@@ -43,7 +44,21 @@ const useApi = () => {
         }
     }
 
-    return { getPatients, getProfessionals, getProceduresByProfessionalId };
+    const postNewAgendamento = async ( agendamento: IAgendamentoPayload ) => {
+        try {
+            const { data: newAgendamento } = await api.post(`/solicitacao`, agendamento);
+            return newAgendamento;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    return { 
+        getPatients, 
+        getProfessionals, 
+        postNewAgendamento,
+        getProceduresByProfessionalId 
+    };
 };
 
 export default useApi;

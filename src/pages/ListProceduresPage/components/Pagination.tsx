@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import leftArrow from "../../../assets/leftArrow.svg"
 import rightArrow from "../../../assets/rightArrow.svg"
+import { SettingsContext } from "../../../contexts/SettingsContext";
 
 interface IPaginationProps {
     total: number,
@@ -10,6 +12,17 @@ interface IPaginationProps {
 const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) => {
 
     const totalPages = Math.ceil(total / 10);
+    const {setLoadingScreen} = useContext(SettingsContext);
+
+    const nextPage = () => {
+        setCurrentPage(currentPage + 1)
+        setLoadingScreen(true)
+    }
+
+    const previousPage = () => {
+        setCurrentPage(currentPage - 1)
+        setLoadingScreen(true)
+    }
 
     const renderPageNumbers = () => {
         const pages = [];
@@ -22,7 +35,10 @@ const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) =
                 <span
                     key={i}
                     className={`cursor-pointer px-2 py-1 ${buttonStyle}`}
-                    onClick={() => setCurrentPage(i)}
+                    onClick={() => {
+                        setCurrentPage(i);
+                        setLoadingScreen(true)
+                    }}
                 >
                     {i}
                 </span>
@@ -40,7 +56,7 @@ const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) =
                 rounded cursor-pointer hover:bg-stc-gray-01
                 hover:disabled:bg-stc-white hover:disabled:cursor-default
                 "
-                onClick={() => setCurrentPage(currentPage - 1)}
+                onClick={previousPage}
                 disabled={currentPage === 1}
             >
                 <img src={leftArrow} alt="left arrow for pagination" />
@@ -51,7 +67,7 @@ const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) =
                 rounded cursor-pointer hover:bg-stc-gray-01
                 hover:disabled:bg-stc-white hover:disabled:cursor-default
                 "
-                onClick={() => setCurrentPage(currentPage + 1)}
+                onClick={nextPage}
                 disabled={currentPage === totalPages}
             >
                 <img src={rightArrow} alt="left arrow for pagination" />

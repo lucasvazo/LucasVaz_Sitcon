@@ -4,9 +4,12 @@ import ReactDOM from 'react-dom/client'
 import React from 'react'
 import './styles/global.css'
 import './styles/reset.css'
+import SettingsContextProvider from "./contexts/SettingsContext";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={pagesRouter} />
+    <SettingsContextProvider>
+      <RouterProvider router={pagesRouter} />
+    </SettingsContextProvider>
   </React.StrictMode>,
 )

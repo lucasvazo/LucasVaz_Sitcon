@@ -1,12 +1,16 @@
 import PageContainer from "../../components/containers/PageContainer";
 import useApi from "../../hooks/useApi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IPatient, IPatientsPayload } from "../../@types/interfaces";
 import PatientsSection from "./components/PatientsSection";
 import RequestFormSection from "./components/RequestFormSection";
+import LoadingScreen from "../../components/animations/LoadingScreen/LoadingScreen";
+import { SettingsContext } from "../../contexts/SettingsContext";
 
 
 const ListProceduresPage = () => {
+
+    const { loadingScreen, setLoadingScreen } = useContext(SettingsContext);
 
     const { getPatients } = useApi();
 
@@ -21,26 +25,31 @@ const ListProceduresPage = () => {
             previous: allPatients.previous > 0 ? true : false,
             total: allPatients.total
         });
+        setLoadingScreen(false)
     };
 
     useEffect(() => {
+        setLoadingScreen(true)
         loadPatients();
     }, []);
 
     return (
-        <PageContainer extraStyles="mt-8">
-            {
-                patientSelected
-                ?
-                <RequestFormSection patientSelected={patientSelected} setPatientSelected={setPatientSelected} />
-                :
-                <PatientsSection 
-                    setPatientSelected={setPatientSelected} 
-                    patientsList={patientsList} 
-                    loadPatients={loadPatients}
-                />  
-            }
-        </PageContainer>
+        <>
+            <PageContainer extraStyles="mt-8">
+                {
+                    patientSelected
+                    ?
+                    <RequestFormSection patientSelected={patientSelected} setPatientSelected={setPatientSelected} />
+                    :
+                    <PatientsSection 
+                        setPatientSelected={setPatientSelected} 
+                        patientsList={patientsList} 
+                        loadPatients={loadPatients}
+                    />  
+                }
+            </PageContainer>
+            { loadingScreen && <LoadingScreen/>}
+        </>
     );
 };
 

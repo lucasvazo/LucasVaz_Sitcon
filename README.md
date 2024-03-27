@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+# Documentação - Lucas Vaz - Sitcon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Back-end
 
-Currently, two official plugins are available:
+O backend (REST api) deste projeto foi desenvolvido em Node.js e Express, utilizando o TypeORM para lidar com a base de dados MySQL.
+As rotas/endpoints estão documentadas no Imsonia caso solicitadas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Padrão de Projeto
+Arquitetura Clean
+Utilizei a arquitetura Clean para garantir a separação de responsabilidades, práticas que visam aperfeiçoar a manutenção do código a longo prazo. Dividi o código em camadas isoladas seguindo as diretrizes da Clean Architecture.
+[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-## Expanding the ESLint configuration
+### Base de Dados SQL - AWS RDS
+A base de dados MySQL está hospedada na AWS RDS. O diagrama UML a seguir apresenta a relação entre as entidades:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![image](https://github.com/lucasvazo/LucasVaz_Sitcon/assets/101674991/6359fd0f-ca47-4a5f-84aa-d60aa39dbbc6)
 
-- Configure the top-level `parserOptions` property like this:
+### Como rodar o projeto (REST API):
+O repositório do back-end está disponível publicamente no link:
+[Back-End - Sitcon Lucas Vaz](https://github.com/lucasvazo/sitcon-api).
+Para rodar a api localmente após o clone:
+1. Executar `npm i` ou `npm install` 
+2. Carregar as variáveis de ambiente (.env) ao projeto.
+3. Executar `npm run dev`.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 2 - Frontend
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+O frontend foi desenvolvido em React com o auxílio do Tailwind CSS e a build foi feita com Vite. Adotei práticas da arquitetura SOLID e utilizei o Atomic Design para organizar os componentes de forma escalável e reutilizável.
+
+### Padrão de Projeto
+SOLID
+
+Segui os princípios do SOLID para garantir um código mais limpo e coeso. Abordei principalmente as práticas de sinle responsibility, open/closed e dependency inversion.
+
+Atomic Design
+
+Utilizei o Atomic Design para organizar os componentes em diferentes níveis de abstração, como átomos, moléculas, organismos e templates.
+
+### Como rodar o projeto (REST API):
+
+1. Clonar o repositório e executar `npm i` ou `npm install` 
+2. Executar `npm run dev`.

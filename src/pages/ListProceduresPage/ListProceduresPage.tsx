@@ -6,6 +6,7 @@ import PatientsSection from "./components/PatientsSection";
 import RequestFormSection from "./components/RequestFormSection";
 import LoadingScreen from "../../components/animations/LoadingScreen/LoadingScreen";
 import { SettingsContext } from "../../contexts/SettingsContext";
+import { ToastContainer } from "react-toastify";
 
 
 const ListProceduresPage = () => {
@@ -49,6 +50,7 @@ const ListProceduresPage = () => {
                 }
             </PageContainer>
             { loadingScreen && <LoadingScreen/>}
+            <ToastContainer position="bottom-left" theme="light"/>
         </>
     );
 };

@@ -9,6 +9,7 @@ import TimeInput from "../../../components/inputs/TimeInput";
 import useUtils from "../../../hooks/useUtils";
 import { ReqFormRow, Warning } from "../../../components/containers/ReqFormRow";
 import { SettingsContext } from "../../../contexts/SettingsContext";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 
 const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFormSection) => {
@@ -23,6 +24,7 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
 
     const { getProfessionals, getProceduresByProfessionalId, postNewAgendamento } = useApi();
     const { formatDateTime } = useUtils();
+    const { showSuccessToast } = useCustomToast();
 
     const { setLoadingScreen } = useContext(SettingsContext);
 
@@ -75,6 +77,7 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             }
         }
         setLoadingScreen(false)
+        showSuccessToast('Procedimento agendado com sucesso.')
     }
 
     useEffect(() => {

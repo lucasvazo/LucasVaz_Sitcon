@@ -134,10 +134,10 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             <ReqFormRow extraStyles="flex justify-end mt-2">
                 <DateInput styles="basis-1/2" 
                     setTimeAndDate={setTimeAndDate}
-                    name="appointmentDate" label="Data" />
+                    name="appointmentDate" label="Data *" />
                 <TimeInput styles="basis-1/2" 
                     setTimeAndDate={setTimeAndDate}
-                    name="appointmentTime" label="Hora" />
+                    name="appointmentTime" label="Hora *" />
             </ReqFormRow>
             <ReqFormRow extraStyles="flex justify-end mt-2 -mb-12">
                 <MainButton 

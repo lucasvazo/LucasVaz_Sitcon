@@ -11,3 +11,9 @@
     min-height: 100vh;
     scrollbar-gutter: stable;
 }
+
+a.active {
+    color: white;
+    border-color: white;
+    outline: 1px solid white;
+}

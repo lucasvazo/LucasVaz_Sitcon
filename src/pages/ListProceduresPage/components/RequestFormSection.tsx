@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IAgendamentoPayload, IRequestFormSection } from "../../../@types/interfaces";
 import MainButton from "../../../components/buttons/MainButton";
 import TextInput from "../../../components/inputs/TextInput";
@@ -8,6 +8,7 @@ import DateInput from "../../../components/inputs/DateInput";
 import TimeInput from "../../../components/inputs/TimeInput";
 import useUtils from "../../../hooks/useUtils";
 import { ReqFormRow, Warning } from "../../../components/containers/ReqFormRow";
+import { SettingsContext } from "../../../contexts/SettingsContext";
 
 
 const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFormSection) => {
@@ -21,11 +22,14 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
     const [ timeAndDate, setTimeAndDate ] = useState<{time: string | null, date: Date | null}>( {time: null, date: null}) ;
 
     const { getProfessionals, getProceduresByProfessionalId, postNewAgendamento } = useApi();
-    const { formatDateTime } = useUtils()
+    const { formatDateTime } = useUtils();
+
+    const { setLoadingScreen } = useContext(SettingsContext);
 
     const loadProfessionals = async () => {
         const profArray = await getProfessionals()
         setProfessionalOptions([...profArray])
+        setLoadingScreen(false)
     };
 
     const loadTypesOfProcedures = async (professionalId: number) => {
@@ -41,6 +45,7 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             }
         })
         setSolicitacaoOptions([...tiposSolicitacaoArray]);
+        setLoadingScreen(false)
     };
 
     const loadProceduresByType = async (professionalId: number, typeId: number) => {
@@ -49,9 +54,11 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             .filter( (procedure: any) => procedure.tipoSolicitacao.id === typeId )
             .map( (procedure: any) => ({ id: procedure.id, nome: procedure.descricao }) );
         setProcedurelOptions([...availableProcedures]);
+        setLoadingScreen(false)
     };
 
     const createAgendamento = async ( e: React.FormEvent<HTMLFormElement> ) => {
+        setLoadingScreen(true);
         e.preventDefault();
         if (timeAndDate.date && timeAndDate.time) {
             const scheduledProcedure = formatDateTime({ date: timeAndDate.date , time: timeAndDate.time})
@@ -63,9 +70,11 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
             }
             const submitPayload = await postNewAgendamento(schedulePayload);
             if (submitPayload) {
-                setPatientSelected(null)
+                setPatientSelected(null);
+                
             }
         }
+        setLoadingScreen(false)
     }
 
     useEffect(() => {
@@ -74,12 +83,14 @@ const RequestFormSection = ({ patientSelected, setPatientSelected } : IRequestFo
 
     useEffect(() => {
         if (selectedProfessional) {
+            setLoadingScreen(true)
             loadTypesOfProcedures(selectedProfessional)
         }
     }, [selectedProfessional]);
 
     useEffect(() => {
         if (selectedSolicitation) {
+            setLoadingScreen(true)
             loadProceduresByType(selectedProfessional, selectedSolicitation)
         }
     }, [selectedSolicitation]);

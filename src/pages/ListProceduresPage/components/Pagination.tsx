@@ -14,12 +14,21 @@ const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) =
     const totalPages = Math.ceil(total / 10);
     const {setLoadingScreen} = useContext(SettingsContext);
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 85,
+            behavior: 'smooth'
+        });
+    };
+
     const nextPage = () => {
+        scrollToTop();
         setCurrentPage(currentPage + 1)
         setLoadingScreen(true)
     }
 
     const previousPage = () => {
+        scrollToTop();
         setCurrentPage(currentPage - 1)
         setLoadingScreen(true)
     }
@@ -36,6 +45,7 @@ const Pagination = ({ total, currentPage, setCurrentPage } : IPaginationProps) =
                     key={i}
                     className={`cursor-pointer px-2 py-1 ${buttonStyle}`}
                     onClick={() => {
+                        scrollToTop();
                         setCurrentPage(i);
                         setLoadingScreen(true)
                     }}

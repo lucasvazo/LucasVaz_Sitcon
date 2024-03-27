@@ -3,6 +3,7 @@ import Agendamento from "./Agendamento";
 import AgendamentoHeader from "./AgendamentoHeader";
 import rightArrow from "../../../assets/rightArrow.svg"
 import { useState } from "react";
+import DeleteModal from "../../../components/modals/DeleteModal";
 
 const AgendamentosDisplay = ( {agendamentos, loadAgendamentos} : 
     {agendamentos: IAgendamentos[], loadAgendamentos: () => Promise<void>}) => {
@@ -11,6 +12,8 @@ const AgendamentosDisplay = ( {agendamentos, loadAgendamentos} :
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentAgendamentos = agendamentos.slice(indexOfFirstItem, indexOfLastItem);
+
+    const [ deleteId, setDeleteId ] = useState<number | null>(null);
 
     const paginateNext = () => {
         if (indexOfLastItem < agendamentos.length) {
@@ -46,11 +49,13 @@ const AgendamentosDisplay = ( {agendamentos, loadAgendamentos} :
                 { currentAgendamentos.map( agendamento => (
                     <Agendamento 
                         key={`${agendamento.agendamentoId}${agendamento.dataAgendamento}`} 
-                        agendamento={agendamento} 
+                        agendamento={agendamento}
+                        setDeleteId={setDeleteId} 
                         loadAgendamentos={loadAgendamentos} 
                     />
                 ))}
             </div>
+            { deleteId && <DeleteModal deleteId={deleteId} setDeleteId={setDeleteId} />}
         </section>
     );
 };

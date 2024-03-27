@@ -85,9 +85,20 @@ const useApi = () => {
         }
     }
 
+    const deleteAgendamento = async ( agendamentoId: number ) => {
+        const ENDPOINT = `/solicitacao/agendamentos?appointmentId=${agendamentoId}`
+        try {
+            const { data: newAgendamento } = await api.delete(ENDPOINT);
+            return newAgendamento;
+        } catch (error) {
+            return false;
+        }
+    }
+
     return { 
         getPatients, 
         getProfessionals, 
+        deleteAgendamento,
         getAllAgendamentos,
         postNewAgendamento,
         getProceduresByProfessionalId 

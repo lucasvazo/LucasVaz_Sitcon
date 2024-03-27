@@ -4,22 +4,22 @@ import ActionButton from "../../../components/buttons/ActionButton";
 import trashCan from "../../../assets/trashCan.svg"
 import whatsappIcon from "../../../assets/whatsappIcon.svg"
 
-const Agendamento = ({agendamento, loadAgendamentos}: 
-    {agendamento: IAgendamentos, loadAgendamentos: () => Promise<void> }) => {
+const Agendamento = ({agendamento, loadAgendamentos, setDeleteId}: 
+    {agendamento: IAgendamentos, loadAgendamentos: () => Promise<void>, setDeleteId: ( deleteId: number) => void }) => {
     const [ expand, setExpand ] = useState<boolean>(false);
     const dataStyle = `basis-1/4 flex items-center px-8 text-gray-600 font-semibold` 
 
-    const deleteAgendamento = () => {
+    const deleteAgendamento = (agendamentoId: number) => {
+        setDeleteId(agendamentoId)
         loadAgendamentos()
     }
-    console
 
     return (
         <div 
             onClick={ () => setExpand(prev=>!prev) }
             onMouseEnter={() => setExpand(true) }
             onMouseLeave={() => setExpand(false)}
-            className="shadow-md w-full bg-gray-100 hover:bg-stc-light-blue
+            className="shadow-md w-full bg-stc-white hover:bg-stc-light-blue
             relative overflow-hidden rounded-lg"
         >
             <div 
@@ -35,7 +35,7 @@ const Agendamento = ({agendamento, loadAgendamentos}:
                     {agendamento.dataAgendamento.split(" ")[1]}
                 </span>
                 <span className={`basis-1/4 flex items-center px-8 gap-3 text-gray-600 font-semibold`}>
-                    <ActionButton imgSource={trashCan} onClick={() => deleteAgendamento()} />
+                    <ActionButton imgSource={trashCan} onClick={() => deleteAgendamento(agendamento.agendamentoId)} />
                     <ActionButton imgSource={whatsappIcon} onClick={() => {}} />
                 </span>
             </div>

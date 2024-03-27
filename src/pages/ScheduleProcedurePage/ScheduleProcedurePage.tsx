@@ -5,6 +5,7 @@ import AgendamentosDisplay from "./components/AgendamentoDisplay";
 import LoadingScreen from "../../components/animations/LoadingScreen/LoadingScreen";
 import PageContainer from "../../components/containers/PageContainer";
 import useApi from "../../hooks/useApi";
+import { ToastContainer } from "react-toastify";
 
 
 const ScheduleProcedurePage = () => {
@@ -32,6 +33,7 @@ const ScheduleProcedurePage = () => {
                 />
             </PageContainer>
             { loadingScreen && <LoadingScreen/>}
+            <ToastContainer position="bottom-left" theme={"light"} />
         </>
     );
 };

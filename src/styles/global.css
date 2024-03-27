@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: proxima-nova, sans-serif;
+    font-style: normal;
+}
+
+#root {
+    min-height: 100vh;
+    scrollbar-gutter: stable;
+}
+
+a.active {
+    color: white;
+    border-color: white;
+    outline: 1px solid white;
+}
